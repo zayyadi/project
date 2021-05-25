@@ -1,0 +1,32 @@
+<!doctype html>
+<title>{% block title %}{% endblock %} - Doer</title>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+<link href="https://fonts.googleapis.com/css?family=Raleway:400,400i,600,700,700i&amp;subset=latin-ext" rel="stylesheet">
+<link href="{{ url_for( 'static', filename='css/styles.css' ) }}" rel="stylesheet">
+<link href="{{ url_for( 'static', filename='css/bootstrap.css' ) }}" rel="stylesheet">
+<link href="{{ url_for( 'static', filename='css/fontawesome-all.css') }}" rel="stylesheet">
+<link href="{{ url_for( 'static', filename='css/swiper.css') }}" rel="stylesheet">
+<link href="{{ url_for( 'static', filename='css/magnific-popup.css') }}" rel="stylesheet">
+</head>
+<nav>
+	<h1>Doer</h1>
+	<ul>
+		{% if current_user.is_authenticated %}
+			<li><span>{{ current_user['username'] }}</span></li>
+			<li><a href="{{ url_for('logout') }}">Log Out</a></li>
+			<li><a href="{{ url_for('users') }}">all Users</a></li>
+		{% else %}
+			<li><a href="{{ url_for('register') }}">Register</a></li>
+			<li><a href="{{ url_for('login') }}">Login</a></li>
+		{% endif %}
+	</ul>
+</nav>
+<section class="content">
+	<header>
+		{% block header %}{% endblock %}
+	</header>
+	{% for message in get_flashed_messages() %}
+		<div class="flash">{{ message }}</div>
+	{% endfor %}
+	{% block content %}{% endblock %}
+</section>
